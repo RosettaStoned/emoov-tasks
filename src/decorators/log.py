@@ -1,4 +1,5 @@
 import os
+import sys
 import pathlib
 from datetime import datetime
 
@@ -16,14 +17,21 @@ def log(filename, **kwargs):
 
         now = datetime.now()
 
-        with open(file_path, 'a+') as fd:
+        try:
 
-            if kwargs.get('msg') is None:
-                fd.write('{} was called at: {}\n'.format(func_name, now))
-            else:
-                fd.write('{} was called and took {} seconds to complete\n'.format(func_name, now, kwargs.get('msg')))
+            with open(file_path, 'a+') as fd:
 
-        fd.close()
+                if kwargs.get('msg') is None:
+                    fd.write('{} was called at: {}\n'.format(func_name, now))
+                else:
+                    fd.write('{} was called and took {} seconds to complete\n'.format(func_name, now, kwargs.get('msg')))
+
+            fd.close()
+
+        except EnvironmentError as e:
+
+            sys.stderr.write('Error: {0}\n'.format(str(e, 'utf-8')))
+            pass
 
         return func
 

@@ -89,9 +89,6 @@ class BookReader(object):
                 print(line, end='')
 
 
-
-
-
 class BookGenerator(object):
     """BookGenerator"""
 
