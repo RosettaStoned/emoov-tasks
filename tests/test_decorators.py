@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
 
+import sys
 import unittest
-from src.decorators import accepts, encrypt, log, perf
 from time import sleep
+
+sys.path.append('../')
+sys.path.append('../../')
+
+from src.decorators import accepts, encrypt, log, perf
 
 
 class TestDecorators(unittest.TestCase):

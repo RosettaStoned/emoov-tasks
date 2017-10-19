@@ -1,3 +1,9 @@
+import sys
+
+sys.path.append('../')
+sys.path.append('../../')
+
+import unittest
 import itertools
 from src.generators import chain, compress, cycle
 
@@ -7,10 +13,16 @@ class TestGenerators(unittest.TestCase):
         pass
 
     def test_chain(self):
-        self.assertEqual(list(chain.chain(range(0, 4), range(4, 8))), list(chain(range(0, 4), range(4, 8)))) 
+
+        my_chain = list(chain.chain(range(0, 4), range(4, 8)))
+        othr_chain = list(itertools.chain(range(0, 4), range(4, 8)))
+        self.assertEqual(my_chain, othr_chain)
 
     def test_compress(self):
-        self.assertEqual(list(compress.compress(["Dimitar", "Rostislav", "emoov"], [False, False, True])), list(compress(["Dimitar", "Rostislav", "emoov"], [False, False, True])))
+
+        my_compress = list(compress.compress(["Dimitar", "Rostislav", "emoov"], [False, False, True]))
+        othr_compress = list(itertools.compress(["Dimitar", "Rostislav", "emoov"], [False, False, True]))
+        self.assertEqual(my_compress, othr_compress)
 
 if __name__ == '__main__':
     unittest.main()
