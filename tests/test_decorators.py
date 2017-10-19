@@ -4,6 +4,7 @@ import sys
 import unittest
 from time import sleep
 
+sys.path.append('./')
 sys.path.append('../')
 sys.path.append('../../')
 
