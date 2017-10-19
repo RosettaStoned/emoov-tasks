@@ -10,44 +10,39 @@ class BookReader(object):
 
     """BookReader"""
 
-    """
-    Book Reader
-
-    You have some text files. They represent a book. Our book contains chapters. Each chapter starts with # at the beginning of the line. (Markdown book)
-
-    Our book is made of many files. Each file has its number 001.txt, 002.txt, 003.txt
-
-    Each file may contain one or more chapters.
-
-    Write a program that displays on the console each chapter. You can only move forwards using the space button.
-
-    Try not to load the whole book in the memory. Use generator!
-    """
-
     CHAPTER_RE = r'#\s+?Chapter\s+\d+'
 
-    def __init__(self, path='book'):
+    def __init__(self, path='book') -> None:
 
         self.__path = path
         self.__c_re = re.compile(self.CHAPTER_RE)
 
-    def __read_file(self, path):
+    def __read_file(self, path: str) -> None:
 
-        with open(path) as fd:
+        try:
 
-            for line in fd:
+            with open(path) as fd:
 
-                if self.__c_re.match(line):
+                for line in fd:
 
-                    space_key = self.__wait_space_key()
-                    if space_key is False:
-                        return
+                    if self.__c_re.match(line):
 
-                yield line
+                        space_key = self.__wait_space_key()
+                        if space_key is False:
+                            return
 
-        fd.close()
+                    yield line
 
-    def __read_path(self):
+            fd.close()
+
+        except EnvironmentError as e: # parent of IOError, OSError *and* WindowsError where available
+
+            sys.stderr.write('Error: {0}\n'.format(str(e, 'utf-8')))
+            sys.exit()
+
+
+
+    def __read_path(self) -> None:
 
         for root, _, files in os.walk(self.__path):
 
@@ -60,7 +55,7 @@ class BookReader(object):
                 yield path
 
 
-    def __wait_space_key(self):
+    def __wait_space_key(self) -> None:
 
         """ Wait for a space key press on the console and return it. """
 
@@ -85,7 +80,7 @@ class BookReader(object):
         return result
 
 
-    def read(self):
+    def read(self) -> None:
 
         for book_file in self.__read_path():
 
@@ -99,22 +94,6 @@ class BookReader(object):
 
 class BookGenerator(object):
     """BookGenerator"""
-
-    """
-    Make a python program that generates books.
-
-    Your program should take the following parameters.
-
-    Chapters count
-    Chapter length range (in words)
-    The words should be with random length and random char. 
-    The format of the book should be: chapters with paragraphs with sentenses with punctuation. 
-    Try to place some new lines in the chapters at random positions. 
-    Title and numerate the chapters. 
-    The whole book must be in one file.
-
-    Try to generate bigger book. Like 1-2G, and try to pass it to the previous program.
-    """
 
     WORD_LENGTH_RANGE = (6, 9)
     WORDS_PER_SENTENCE_RANGE = (9, 13)
