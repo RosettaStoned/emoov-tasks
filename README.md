@@ -4,6 +4,9 @@
 ## Clone the project
   git clone https://github.com/RosettaStoned/emoov-tasks
   
+## Read the tasks
+  tasks.md
+  
 ## Info
   You can find impementation of decorators tasks in 'src/decorators', generators tasks in 'src/generators'
   and book task in 'src/book'
